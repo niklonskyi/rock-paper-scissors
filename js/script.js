@@ -32,22 +32,38 @@ function printResult(result){
     }
 }
 
-function game(){
+function game(userSelection) {
     let count = 0;
-    for (let i = 0; i < 5; i++){
-        const userSelection = prompt('Enter your choice: ');
-        const computerSelection = getComputerChoice();
+    const computerSelection = getComputerChoice();
+    if (userSelection !== undefined) {
         const round = playRound(userSelection, computerSelection);
         count += round;
         console.log(`${printResult(round)}, ${userSelection}, ${computerSelection}`);
-    }
-    if (count < 0){
-        console.log('Game is over. Computer won!')
-    }
-    else if (count > 0){
-        console.log('Game is over. User won!')
-    }
-    else {
-        console.log('Draw!')
+        if (count < 0) {
+            console.log('Game is over. Computer won!')
+        } else if (count > 0) {
+            console.log('Game is over. User won!')
+        } else {
+            console.log('Draw!')
+        }
     }
 }
+
+function showChoices() {
+    this.classList.add('hidden');
+    for (let choice of document.querySelectorAll('.choice')){
+        choice.classList.remove('hidden');
+    }
+}
+
+let play = document.getElementById('play');
+play.addEventListener("click", showChoices);
+
+
+    for (let choice of document.querySelectorAll(".choice")) {
+        choice.addEventListener("click", function (){
+            let userSelection = choice.dataset.choice;
+            game(userSelection);
+        });
+    }
+
