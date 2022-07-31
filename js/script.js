@@ -32,19 +32,22 @@ function printResult(result){
     }
 }
 
-function game(userSelection) {
-    let count = 0;
+function game(userSelection, countRounds) {
     const computerSelection = getComputerChoice();
+    let countWins = 0;
     if (userSelection !== undefined) {
         const round = playRound(userSelection, computerSelection);
-        count += round;
+        countWins += round;
         console.log(`${printResult(round)}, ${userSelection}, ${computerSelection}`);
-        if (count < 0) {
-            console.log('Game is over. Computer won!')
-        } else if (count > 0) {
-            console.log('Game is over. User won!')
-        } else {
-            console.log('Draw!')
+        if (countRounds >= 5) {
+            if (countWins < 0) {
+                console.log('Game is over. Computer won!')
+            } else if (countWins > 0) {
+                console.log('Game is over. User won!')
+            } else {
+                console.log('Draw!')
+            }
+            endGame();
         }
     }
 }
@@ -56,14 +59,29 @@ function showChoices() {
     }
 }
 
+function endGame() {
+    play.classList.remove('hidden');
+    for (let choice of document.querySelectorAll('.choice')){
+        choice.classList.add('hidden');
+    }
+    resetRounds();
+}
+
 let play = document.getElementById('play');
 play.addEventListener("click", showChoices);
 
+let countRounds = 0;
 
+function resetRounds() {
+    countRounds = 0;
+}
+    let userSelection = '';
     for (let choice of document.querySelectorAll(".choice")) {
-        choice.addEventListener("click", function (){
-            let userSelection = choice.dataset.choice;
-            game(userSelection);
+        choice.addEventListener("click", function () {
+            userSelection = choice.dataset.choice;
+            countRounds++;
+            game(userSelection, countRounds);
         });
     }
+
 
