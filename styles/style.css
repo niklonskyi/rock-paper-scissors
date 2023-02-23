@@ -1,3 +1,8 @@
+body, html {
+    margin: 0;
+    height: 100%;
+}
+
 .container {
     display: flex;
     height: 100%;
@@ -7,19 +12,16 @@
 }
 
 .buttons{
-    margin-bottom: 100px;
+    margin-bottom: 70px;
 }
 
 .results {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 300px;
     height: 150px;
     flex-wrap: wrap;
     white-space: pre-wrap;
-}
-html, body {
-    height: 100%;
 }
 
 .hidden {
