@@ -4,7 +4,6 @@ function getComputerChoice() {
 }
 
 function playRound(userSelection, computerSelection){
-    userSelection = userSelection.toLowerCase().trim();
     if (userSelection === computerSelection){
         return 0;
     }
@@ -32,20 +31,24 @@ function printResult(result){
     }
 }
 
+let results = document.querySelector('.results')
+let header = document.querySelector('.header h1')
+
+let countWins = 0;
+
 function game(userSelection, countRounds) {
     const computerSelection = getComputerChoice();
-    let countWins = 0;
     if (userSelection !== undefined) {
         const round = playRound(userSelection, computerSelection);
         countWins += round;
-        console.log(`${printResult(round)}, ${userSelection}, ${computerSelection}`);
+        results.appendChild(document.createTextNode(`${printResult(round)}, ${userSelection}, ${computerSelection} \n`));
         if (countRounds >= 5) {
             if (countWins < 0) {
-                console.log('Game is over. Computer won!')
+                header.innerHTML = 'Game is over. Computer won!';
             } else if (countWins > 0) {
-                console.log('Game is over. User won!')
+                header.innerHTML = 'Game is over. User won!';
             } else {
-                console.log('Draw!')
+                header.innerHTML = 'Draw!';
             }
             endGame();
         }
@@ -53,6 +56,8 @@ function game(userSelection, countRounds) {
 }
 
 function showChoices() {
+    header.innerHTML = 'Rock, Paper, Scissors!';
+    results.innerHTML = '';
     this.classList.add('hidden');
     for (let choice of document.querySelectorAll('.choice')){
         choice.classList.remove('hidden');
@@ -61,6 +66,7 @@ function showChoices() {
 
 function endGame() {
     play.classList.remove('hidden');
+    play.innerHTML = 'Play again';
     for (let choice of document.querySelectorAll('.choice')){
         choice.classList.add('hidden');
     }
@@ -74,6 +80,7 @@ let countRounds = 0;
 
 function resetRounds() {
     countRounds = 0;
+    countWins = 0;
 }
     let userSelection = '';
     for (let choice of document.querySelectorAll(".choice")) {
